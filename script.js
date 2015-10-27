@@ -3,8 +3,8 @@
 
 // set up the map center and zoom level
 var map = L.map('map', {
-  center: [41.76, -72.67], // [41.5, -72.7] for Connecticut; [41.76, -72.67] for Hartford county or city
-  zoom: 10, // zoom 9 for Connecticut; 10 for Hartford county, 12 for Hartford city
+  center: [41.6, -72.65], // [41.5, -72.7] for Connecticut; [41.76, -72.67] for Hartford county or city
+  zoom: 9, // zoom 9 for Connecticut; 10 for Hartford county, 12 for Hartford city
   zoomControl: false // add later to reposition
 });
 
@@ -29,12 +29,7 @@ L.control.zoom({position: "topright"}).addTo(map);
 var lightAll = new L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 }).addTo(map); //this displays layer by default
-controlLayers.addBaseLayer(lightAll, 'CartoDB LightAll');
-
-var lightNoLabels = new L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-});
-controlLayers.addBaseLayer(lightNoLabels, 'CartoDB Light no labels');
+// controlLayers.addBaseLayer(lightAll, 'CartoDB LightAll');
 
 /* POINT OVERLAYS */
 // ways to load point map data from different sources: coordinates in the code, GeoJSON in local directory, remote GeoJSON and JSON
@@ -50,37 +45,93 @@ var starIcon = L.icon({
 L.marker([41.764, -72.682], {icon: starIcon}).addTo(map);
 
 /* POLYGON OVERLAYS */
-// Ways to load geoJSON polygon layers from local directory or remote server
-// Different options for styling and interactivity
 
-$.getJSON("src/1950_Hartford_SMA.geojson", function (data) {   // insert pathname to your local directory file
+// load polygon data with clickable features from local directory
+$.getJSON("src/CTtowns.geojson", function (data) {   // insert pathname to your local directory file
+  var geoJsonLayer = L.geoJson(data, {
+    style: function (feature) {
+      return {
+        'color': 'black',
+        'weight': 1,
+        'fillColor': '#fff',
+        'fillOpacity': 0.2
+      }
+    },
+    onEachFeature: function( feature, layer) {
+      layer.bindPopup(feature.properties.Town) // change 'Town' to match your geojson property labels
+    }
+  }).addTo(map);  // insert ".addTo(map)" to display layer by default
+  // controlLayers.addOverlay(geoJsonLayer, 'CT Towns');  // insert your 'Title' to add to legend
+});
+
+$.getJSON("src/1950-SMA.geojson", function (data) {   // insert pathname to your local directory file
   var geoJsonLayer = L.geoJson(data, {
     style: function (feature) {
       return {
         'color': 'red',
-        'weight': 6,
-        'fillColor': '#c8c8c8',
-        'fillOpacity': 0.2
+        'weight': 4
       }
     }
   }).addTo(map);  // insert ".addTo(map)" to display layer by default
-  controlLayers.addOverlay(geoJsonLayer, '1950 Hartford SMA');  // insert your 'Title' to add to legend
+  controlLayers.addOverlay(geoJsonLayer, '1950 SMA');  // insert your 'Title' to add to legend
 });
 
-// // load polygon data with clickable features from local directory
-// $.getJSON("src/CTtowns.geojson", function (data) {   // insert pathname to your local directory file
-//   var geoJsonLayer = L.geoJson(data, {
-//     style: function (feature) {
-//       return {
-//         'color': 'black',
-//         'weight': 1,
-//         'fillColor': '#fff',
-//         'fillOpacity': 0.2
-//       }
-//     },
-//     onEachFeature: function( feature, layer) {
-//       layer.bindPopup(feature.properties.Town) // change 'Town' to match your geojson property labels
-//     }
-//   }).addTo(map);  // insert ".addTo(map)" to display layer by default
-//   controlLayers.addOverlay(geoJsonLayer, 'CT Towns');  // insert your 'Title' to add to legend
-// });
+$.getJSON("src/1960-SMSA.geojson", function (data) {   // insert pathname to your local directory file
+  var geoJsonLayer = L.geoJson(data, {
+    style: function (feature) {
+      return {
+        'color': 'blue',
+        'weight': 4
+      }
+    }
+  });  // insert ".addTo(map)" to display layer by default
+  controlLayers.addOverlay(geoJsonLayer, '1960 SMSA');  // insert your 'Title' to add to legend
+});
+
+$.getJSON("src/1963-SMSA.geojson", function (data) {   // insert pathname to your local directory file
+  var geoJsonLayer = L.geoJson(data, {
+    style: function (feature) {
+      return {
+        'color': 'green',
+        'weight': 4
+      }
+    }
+  });  // insert ".addTo(map)" to display layer by default
+  controlLayers.addOverlay(geoJsonLayer, '1963 SMSA');  // insert your 'Title' to add to legend
+});
+
+$.getJSON("src/1973-SMSA.geojson", function (data) {   // insert pathname to your local directory file
+  var geoJsonLayer = L.geoJson(data, {
+    style: function (feature) {
+      return {
+        'color': 'purple',
+        'weight': 4
+      }
+    }
+  });  // insert ".addTo(map)" to display layer by default
+  controlLayers.addOverlay(geoJsonLayer, '1973 SMSA');  // insert your 'Title' to add to legend
+});
+
+$.getJSON("src/1983-PMSA.geojson", function (data) {   // insert pathname to your local directory file
+  var geoJsonLayer = L.geoJson(data, {
+    style: function (feature) {
+      return {
+        'color': 'green',
+        'weight': 4
+      }
+    }
+  });  // insert ".addTo(map)" to display layer by default
+  controlLayers.addOverlay(geoJsonLayer, '1983 PMSA');  // insert your 'Title' to add to legend
+});
+
+$.getJSON("src/1993-MSA.geojson", function (data) {   // insert pathname to your local directory file
+  var geoJsonLayer = L.geoJson(data, {
+    style: function (feature) {
+      return {
+        'color': 'blue',
+        'weight': 4
+      }
+    }
+  }).addTo(map);  // insert ".addTo(map)" to display layer by default
+  controlLayers.addOverlay(geoJsonLayer, '1993 MSA');  // insert your 'Title' to add to legend
+});
