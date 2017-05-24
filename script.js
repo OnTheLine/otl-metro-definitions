@@ -10,7 +10,7 @@ var map = L.map('map', {
 
 // optional : customize link to view source code; add your own GitHub repository
 map.attributionControl
-.setPrefix('View <a href="http://github.com/jackdougherty/otl-metro-definitions">code on GitHub</a>, created with <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+.setPrefix('View <a href="https://github.com/jackdougherty/otl-metro-definitions">code on GitHub</a>, created with <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
 
 // optional: add legend to toggle any baselayers and/or overlays
 // global variable with (null, null) allows indiv layers to be added inside functions below
@@ -26,10 +26,10 @@ L.control.zoom({position: "topright"}).addTo(map);
 // use common baselayers below, delete, or add more with plain JavaScript from http://leaflet-extras.github.io/leaflet-providers/preview/
 // .addTo(map); -- suffix displays baselayer by default
 // controlLayers.addBaseLayer (variableName, 'label'); -- adds baselayer and label to legend; omit if only one baselayer with no toggle desired
-var lightAll = new L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+var lightAll = new L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-}).addTo(map); //this displays layer by default
-// controlLayers.addBaseLayer(lightAll, 'CartoDB LightAll');
+}).addTo(map); // adds layer by default
+//controlLayers.addBaseLayer(lightAll, 'CartoDB LightAll');
 
 /* POINT OVERLAYS */
 // ways to load point map data from different sources: coordinates in the code, GeoJSON in local directory, remote GeoJSON and JSON
