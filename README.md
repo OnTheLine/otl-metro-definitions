@@ -4,9 +4,9 @@ Historical definitions of Hartford metropolitan area by US Census, with Leaflet,
 ## Demo
 https://jackdougherty.github.io/otl-metro-definitions/index-frame.html
 
-## iframe shortcode for OnTheLine
+## iframe for [On The Line book](http://ontheline.trincoll.edu)
 ```
-[iframe src='https://jackdougherty.github.io/otl-metro-definitions' width="100%" height=450]
+<iframe src='https://jackdougherty.github.io/otl-metro-definitions' width="100%" height=450></iframe>
 ```
 
 ## Source info
